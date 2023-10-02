@@ -2,35 +2,43 @@
 #include <math.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <string.h>
 
 
+void sort(char arr[], int size) {
 
-void printStr(char stringToRepeat[25]) {
-  printf("\n%s", stringToRepeat);
+  for (int i = 0; i < size - 1; i++) {
+    for (int j = 0; j < size - i - 1; j++) {
+      if (arr[j] > arr[j + 1]) {
+        int temp = arr[j];
+        arr[j] = arr[j + 1];
+        arr[j + 1] = temp;
+      }
+    }
+  }
+
+
 }
 
 
 
+void printArray(char arr[], int size) {
+  for (int i = 0; i < size; i++) {
+    printf("%c", arr[i]);
+  }
+}
+
+
 int main() {
 
+  //int arr[] = { 1,2,3,4,5,6,7,8 };
+  char arr[] = { 'F', 'A', 'D', 'C', 'E', 'B' };
+  int size = sizeof(arr) / sizeof(arr[0]);
 
-  char stringToRepeat[25];
-  printf("What message would you like to repeat? ");
-  fgets(stringToRepeat, 25, stdin);
-
-  int numberOfTimesToRepeat;
-  printf("How many times would you like to repeat your message ");
-  scanf("%d", &numberOfTimesToRepeat);
+  sort(arr, size);
+  printArray(arr, size);
 
 
-
-
-
-  int i = 0;
-  while (i < numberOfTimesToRepeat) {
-    printStr(stringToRepeat);
-    i += 1;
-  }
 
 
   return 0;
