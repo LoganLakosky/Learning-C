@@ -3,43 +3,58 @@
 #include <ctype.h>
 #include <stdbool.h>
 #include <string.h>
+#include <stdlib.h>
+#include <time.h>
 
 
-void sort(char arr[], int size) {
+int addition(int num1, int num2) {
+  return num1 + num2;
+}
 
-  for (int i = 0; i < size - 1; i++) {
-    for (int j = 0; j < size - i - 1; j++) {
-      if (arr[j] > arr[j + 1]) {
-        int temp = arr[j];
-        arr[j] = arr[j + 1];
-        arr[j + 1] = temp;
-      }
-    }
-  }
-
-
+int subtraction(int num1, int num2) {
+  return num1 - num2;
 }
 
 
-
-void printArray(char arr[], int size) {
-  for (int i = 0; i < size; i++) {
-    printf("%c", arr[i]);
-  }
+int multiplication(int num1, int num2) {
+  return num1 * num2;
 }
+
+float division(float num1, float num2) {
+  return num1 / num2;
+}
+
 
 
 int main() {
 
-  //int arr[] = { 1,2,3,4,5,6,7,8 };
-  char arr[] = { 'F', 'A', 'D', 'C', 'E', 'B' };
-  int size = sizeof(arr) / sizeof(arr[0]);
-
-  sort(arr, size);
-  printArray(arr, size);
+  int num1;
+  int num2;
+  char operation;
 
 
+  printf("What operation do you want to perform: ");
+  scanf("%c", &operation);
 
+  printf("What do you want your first number to be: ");
+  scanf("%d", &num1);
+
+  printf("What do you want your second number to be: ");
+  scanf("%d", &num2);
+
+
+  if (operation == '+') {
+    printf("Your final result is: %d", addition(num1, num2));
+  }
+  else if (operation == '-') {
+    printf("Your final result is: %d", subtraction(num1, num2));
+  }
+  else if (operation == '*') {
+    printf("Your final result is: %d", multiplication(num1, num2));
+  }
+  else if (operation == '/') {
+    printf("Your final result is: %.2f", division(num1, num2));
+  }
 
   return 0;
 }

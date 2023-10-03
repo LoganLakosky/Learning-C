@@ -3,6 +3,7 @@
   "files.associations": {
     "ctype.h": "c",
     "typeinfo": "c",
-    "string.h": "c"
+    "string.h": "c",
+    "limits": "c"
   }
 }
