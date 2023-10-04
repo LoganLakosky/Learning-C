@@ -4,6 +4,7 @@
     "ctype.h": "c",
     "typeinfo": "c",
     "string.h": "c",
-    "limits": "c"
+    "limits": "c",
+    "time.h": "c"
   }
 }
