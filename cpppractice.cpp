@@ -9,36 +9,53 @@ using std::string;
 using std::cout;
 using std::pair;
 using std::cin;
+using std::getline;
 
 
-void sort(int array[], int size);
 
+int getDigit(const int number) {
+  return number % 10 + (number / 10 % 10);
+}
+
+int sumOddDigits(const string cardNumber) {
+  int sum = 0;
+
+  for (int i = cardNumber.size() - 1; i >= 0; i -= 2) {
+    sum += cardNumber[i] - '0';
+  }
+
+  return sum;
+}
+
+int sumEvenDigits(const string cardNumber) {
+  int sum = 0;
+
+  for (int i = cardNumber.size() - 2; i >= 0; i -= 2) {
+    sum += getDigit(cardNumber[i] - '0' * 2);
+  }
+
+  return sum;
+}
 
 
 int main() {
 
-  int array[] = { 10,6,3,12,15,7,9 };
-  int size = sizeof(array) / sizeof(int);
+  string cardNumber;
+  int result = 0;
 
-  sort(array, size);
+  cout << "Enter a credit card #: ";
+  cin >> cardNumber;
 
-  for (int element : array) {
-    cout << element << " ";
+  result = sumEvenDigits(cardNumber) + sumOddDigits(cardNumber);
+
+  if (result % 10 == 0) {
+    cout << cardNumber << " is valid";
   }
+  else {
+    cout << cardNumber << " is not valid";
+  }
+
+
 
   return 0;
-}
-
-
-void sort(int array[], int size) {
-  int temp;
-  for (int i = 0; i < size - 1; i++) {
-    for (int j = 0; j < size - i - 1; j++) {
-      if (array[j] > array[j + 1]) {
-        temp = array[j];
-        array[j] = array[j + 1];
-        array[j + 1] = temp;
-      }
-    }
-  }
 }
