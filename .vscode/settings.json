@@ -47,6 +47,8 @@
     "new": "cpp",
     "numbers": "cpp",
     "stdexcept": "cpp",
-    "streambuf": "cpp"
+    "streambuf": "cpp",
+    "ctime": "cpp",
+    "iomanip": "cpp"
   }
 }

@@ -1,86 +1,44 @@
 #include <iostream>
 #include <vector>
 #include <cmath>
+#include <ctime>
+#include <iomanip>
 
 using std::vector;
 using std::string;
 using std::cout;
 using std::pair;
 using std::cin;
-using std::getline;
 
 
-
-double addition(double num1, double num2) {
-  const double RESULT = num1 + num2;
-  return RESULT;
-}
-
-double subtraction(double num1, double num2) {
-  const double RESULT = num1 - num2;
-  return RESULT;
-}
-
-double multiplication(double num1, double num2) {
-  const double RESULT = num1 * num2;
-  return RESULT;
-}
-
-double division(double num1, double num2) {
-  const double RESULT = num1 / num2;
-  return RESULT;
-}
+void sort(int array[], int size);
 
 
 
 int main() {
 
-  char operation;
-  double num1;
-  double num2;
-  double result;
+  int array[] = { 10,6,3,12,15,7,9 };
+  int size = sizeof(array) / sizeof(int);
 
-  cout << "What operation would you like: (A, B, C, D) ";
-  cin >> operation;
+  sort(array, size);
 
-  cout << "What would you like number 1 to be?: ";
-  cin >> num1;
-
-  cout << "What would you like number 2 to be?: ";
-  cin >> num2;
-
-
-  const char lowerCaseOperation = tolower(operation);
-  switch (lowerCaseOperation) {
-
-  case 'a':
-    result = addition(num1, num2);
-
-    cout << "Final result: " << result;
-    break;
-
-  case 'b':
-    result = subtraction(num1, num2);
-    cout << "Final result: " << result;
-    break;
-
-  case 'c':
-    result = multiplication(num1, num2);
-    cout << "Final result: " << result;
-    break;
-
-  case 'd':
-    result = division(num1, num2);
-    cout << "Final result: " << result;
-    break;
-
-
-  default:
-    cout << "Please enter in either A, B, C or D";
+  for (int element : array) {
+    cout << element << " ";
   }
 
   return 0;
 }
 
 
-
+void sort(int array[], int size) {
+  int temp;
+  for (int i = 0; i < size - 1; i++) {
+    for (int j = 0; j < size - i - 1; j++) {
+      if (array[j] > array[j + 1]) {
+        temp = array[j];
+        array[j] = array[j + 1];
+        array[j + 1] = temp;
+      }
+    }
+  }
+}
