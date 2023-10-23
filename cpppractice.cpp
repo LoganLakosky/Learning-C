@@ -3,6 +3,8 @@
 #include <cmath>
 #include <ctime>
 #include <iomanip>
+#include <fstream>
+
 
 using std::vector;
 using std::string;
@@ -13,118 +15,100 @@ using std::getline;
 
 
 
-void drawBoard(char* spaces) {
-  cout << '\n';
-  cout << "     |     |     " << '\n';
-  cout << " " << spaces[0] << "  |  " << spaces[1] << "  |  " << spaces[2] << " " << '\n';
-  cout << "_____|_____|_____" << '\n';
-  cout << "     |     |     " << '\n';
-  cout << " " << spaces[3] << "  |  " << spaces[4] << "  |  " << spaces[5] << " " << '\n';
-  cout << "_____|_____|_____" << '\n';
-  cout << "     |     |     " << '\n';
-  cout << " " << spaces[6] << "  |  " << spaces[7] << "  |  " << spaces[8] << " " << '\n';
-  cout << "     |     |     " << '\n';
-  cout << '\n';
 
+void setupUsername() {
+  cout << "What do you want your username to be? " << '\n';
 }
 
-void playerMove(char* spaces, char player) {
-  int number;
-  do {
-
-    cout << "Enter a spot to place a marker (1-9)";
-    cin >> number;
-    number--;
-    if (spaces[number] == ' ') {
-      spaces[number] = player;
-      break;
-    }
-
-  } while (number < 0 || number > 8);
-}
-
-void computerMove(char* spaces, char computer) {
-  int number;
-
-  srand(time(0));
-
-
-  while (true) {
-    number = rand() % 9;
-    if (spaces[number] == ' ') {
-      spaces[number] = computer;
-      break;
-    }
-  }
-
-}
-
-bool checkWinner(char* spaces, char player, char computer) {
-
-  if (spaces[0] == spaces[1] && spaces[1] == spaces[2] && spaces[0] != ' ') {
-    spaces[0] == player ? cout << "You win!!" : cout << "You lose!";
-  }
-  else if (spaces[3] == spaces[4] && spaces[4] == spaces[5] && spaces[3] != ' ') {
-    spaces[3] == player ? cout << "You win!!" : cout << "You lose!";
-  }
-  else if (spaces[6] == spaces[7] && spaces[7] == spaces[8] && spaces[6] != ' ') {
-    spaces[6] == player ? cout << "You win!!" : cout << "You lose!";
-  }
-  else if (spaces[0] == spaces[4] && spaces[4] == spaces[9] && spaces[0] != ' ') {
-    spaces[0] == player ? cout << "You win!!" : cout << "You lose!";
-  }
-  else if (spaces[2] == spaces[4] && spaces[4] == spaces[6] && spaces[2] != ' ') {
-    spaces[2] == player ? cout << "You win!!" : cout << "You lose!";
-  }
-
-
-  return 0;
-
-
-
-}
-
-bool checkTie(char* spaces) {
-  return 0;
+void setupPassword() {
+  cout << "What do you want your password to be? " << '\n';
 }
 
 
+
+
+bool checkUsername(string actualUsername, string userInputtedUsername) {
+  if (actualUsername == userInputtedUsername) {
+    cout << "That is the correct username" << '\n';
+    return true;
+  }
+  else {
+    cout << "That username does not match" << '\n';
+    return false;
+  }
+}
+
+bool checkPassword(string actualpassword, string userInputtedPassword) {
+  if (actualpassword == userInputtedPassword) {
+    cout << "That is the correct password" << '\n';
+    return true;
+  }
+  else {
+    cout << "That password does not match" << '\n';
+    return false;
+  }
+}
 
 int main() {
+  bool shouldContinue = true;
 
-  char spaces[9] = { ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ' };
-  char player = 'X';
-  char computer = 'O';
-  bool running = true;
+  string username;
+  string password;
 
-  drawBoard(spaces);
+  FILE* usernameFile1 = fopen("username.txt", "r");
+  char buffer1[255];
 
-  while (running) {
-    playerMove(spaces, player);
-    drawBoard(spaces);
+  if (usernameFile1 != NULL) {
+    while (fgets(buffer1, 255, usernameFile1) != NULL) {}
+    fclose(usernameFile1);
 
-    if (checkWinner(spaces, player, computer)) {
-      running = false;
-      break;
-    }
-    else if (checkTie(spaces)) {
-      running = false;
-      break;
-    }
+    string tempUsername;
 
-    computerMove(spaces, computer);
-    drawBoard(spaces);
-    if (checkWinner(spaces, player, computer)) {
-      running = false;
-      break;
-    } else if (checkTie(spaces)) {
-      running = false;
-      break;
+    cout << "What is your username? ";
+    cin >> tempUsername;
+
+    if (!checkUsername(buffer1, tempUsername)) {
+      return 0;
     }
 
   }
 
 
+  FILE* passwordFile1 = fopen("password.txt", "r");
+  char buffer2[255];
+
+  if (passwordFile1 != NULL) {
+    while (fgets(buffer2, 255, passwordFile1)) {
+
+    }
+
+    fclose(passwordFile1);
+
+    string tempPassword;
+
+    cout << "What is your password? ";
+    cin >> tempPassword;
+
+    if (!checkPassword(buffer2, tempPassword)) {
+      return 0;
+    }
+
+    shouldContinue = false;
+  }
+
+  if (shouldContinue) {
+    setupUsername();
+    cin >> username;
+    FILE* usernameFile2 = fopen("username.txt", "w");
+    fprintf(usernameFile2, username.data());
+    fclose(usernameFile2);
+
+    setupPassword();
+    cin >> password;
+    FILE* passwordFile2 = fopen("password.txt", "w");
+    fprintf(passwordFile2, password.data());
+    fclose(passwordFile2);
+  }
 
   return 0;
 }
